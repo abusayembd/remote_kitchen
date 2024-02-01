@@ -6,7 +6,8 @@ import 'package:get/get.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
-  const HomeView({super.key});
+  final formKey = GlobalKey<FormState>();
+   HomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,50 +35,83 @@ class HomeView extends GetView<HomeController> {
                             const SizedBox(
                               height: 20,
                             ),
-                            TextField(
-                              controller: controller.employeeNameController,
-                              decoration: const InputDecoration(
-                                hintText: 'Enter Employee Name',
-                                border: OutlineInputBorder(),
-                              ),
+                            Form(
+                                key: formKey,
+                                child: Column(
+                              children: [
+                                TextFormField(
+                                  controller: controller.employeeNameController,
+                                  decoration: const InputDecoration(
+                                    hintText: 'Enter Employee Name',
+                                    border: OutlineInputBorder(),
+                                  ),
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'Please fill out the field';
+                                    } else {
+                                      return null;
+                                    }
+                                  },
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                TextFormField(
+                                  controller: controller.employeeSalaryController,
+                                  decoration: const InputDecoration(
+                                    hintText: 'Enter Employee Salary',
+                                    border: OutlineInputBorder(),
+                                  ),
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'Please fill out the field';
+                                    } else {
+                                      return null;
+                                    }
+                                  },
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                TextFormField(
+                                  controller: controller.employeeAgeController,
+                                  decoration: const InputDecoration(
+                                    hintText: 'Enter Employee Age',
+                                    border: OutlineInputBorder(),
+                                  ),
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'Please fill out the field';
+                                    } else {
+                                      return null;
+                                    }
+                                  },
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.blueAccent.shade100,
+                                  ),
+                                  onPressed: () async {
+                                    if(formKey.currentState!.validate()){
+                                      controller.addEmployeeDataProcess();
+                                      await controller.getAllEmployeeDataProcess();
+                                      Navigator.pop(context);
+                                    }
+
+
+                                  },
+                                  child: const Text(
+                                    'Add',
+                                    style: TextStyle(color: Colors.black),
+                                  ),
+                                ),
+                              ],
+                            )
                             ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            TextField(
-                              controller: controller.employeeSalaryController,
-                              decoration: const InputDecoration(
-                                hintText: 'Enter Employee Salary',
-                                border: OutlineInputBorder(),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            TextField(
-                              controller: controller.employeeAgeController,
-                              decoration: const InputDecoration(
-                                hintText: 'Enter Employee Age',
-                                border: OutlineInputBorder(),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.blueAccent.shade100,
-                              ),
-                              onPressed: () async {
-                                controller.addEmployeeDataProcess();
-                                await controller.getAllEmployeeDataProcess();
-                                Navigator.pop(context);
-                              },
-                              child: const Text(
-                                'Add',
-                                style: TextStyle(color: Colors.black),
-                              ),
-                            ),
+
                           ],
                         ),
                       );

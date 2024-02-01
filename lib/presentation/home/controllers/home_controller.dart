@@ -76,12 +76,12 @@ class HomeController extends GetxController {
   final _isEmployeeDataStoreLoading = false.obs;
   late EmployeeModel _employeeStoreModel;
 
-  /// >> get Invoice Store loading process & Invoice Store Model
+  /// >> get employee data loading process & employee data Store Model
   bool get isInvoiceStoreLoading => _isEmployeeDataStoreLoading.value;
 
   EmployeeModel get employeeStoreModel => _employeeStoreModel;
 
-  ///* Invoice Store process or in another word create invoice process
+  ///* create employee data process
   Future<EmployeeModel> addEmployeeDataProcess() async {
     _isEmployeeDataStoreLoading.value = true;
     update();
